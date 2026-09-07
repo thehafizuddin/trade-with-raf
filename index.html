@@ -36,6 +36,22 @@
   }
   .wrap { max-width: 920px; margin: 0 auto; padding: 0 22px; width: 100%; }
 
+  /* ---------- hero background (pexels) ---------- */
+  .hero-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url('https://images.pexels.com/photos/39353380/pexels-photo-39353380.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    background-size: cover; background-position: center;
+    opacity: .22;
+    filter: saturate(.9);
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1100px 550px at 80% -10%, rgba(7,11,20,.15), transparent 60%),
+      linear-gradient(180deg, rgba(7,11,20,.86) 0%, rgba(7,11,20,.55) 45%, rgba(7,11,20,.94) 100%);
+  }
+
   /* ---------- candlestick ornaments ---------- */
   .candle { position: fixed; width: 1px; height: 90px; background: var(--line); opacity: .5; display: none; }
   .candle .w { position: absolute; left: 50%; transform: translateX(-50%); height: 6px; width: 8px; }
@@ -182,6 +198,9 @@
 </style>
 </head>
 <body id="top">
+
+<!-- pexels forex chart background -->
+<div class="hero-bg" role="img" aria-label="Forex candlestick chart"></div>
 
 <!-- background candles -->
 <div class="candle up" style="left:8%; top:14%"><span class="w"></span></div>
