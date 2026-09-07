@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trade With Structure — Forex &amp; Metal</title>
+<meta name="description" content="Still trading without a confirmation? Learn to trade Forex & Metal with clear structure, discipline and timing." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #070b14;
+    --bg-soft: #0c1322;
+    --panel: #101a2e;
+    --line: #1c2a44;
+    --green: #22c55e;
+    --green-soft: #14532d;
+    --blue: #3b82f6;
+    --text: #eaf0fb;
+    --muted: #9aa8c2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(1100px 500px at 80% -10%, rgba(59,130,246,.14), transparent 60%),
+      radial-gradient(900px 500px at 0% 10%, rgba(34,197,94,.08), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 22px; }
+
+  /* ---------- candlestick ornaments ---------- */
+  .candle { position: fixed; width: 1px; height: 90px; background: var(--line); opacity: .5; display: none; }
+  .candle .w { position: absolute; left: 50%; transform: translateX(-50%); height: 6px; width: 8px; }
+  .candle.up .w { top: 0; border: 1px solid var(--green); }
+  .candle.down .w { bottom: 0; border: 1px solid #ef4444; }
+  .candle.up { background: var(--green); opacity: .12; }
+  .candle.down { background: #ef4444; opacity: .10; }
+
+  /* ---------- header ticker ---------- */
+  .ticker {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(7,11,20,.72);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    font-size: .72rem; letter-spacing: .04em; color: var(--muted);
+  }
+  .ticker-track {
+    display: flex; gap: 34px; white-space: nowrap;
+    padding: 9px 0; animation: tick 40s linear infinite;
+  }
+  .ticker-track b { color: var(--green); font-weight: 600; }
+  @keyframes tick { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+  main { padding: 56px 0 70px; position: relative; z-index: 1; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--green-soft);
+    background: rgba(34,197,94,.08);
+    color: var(--green);
+    font-size: .78rem; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px;
+    letter-spacing: .06em; text-transform: uppercase;
+  }
+  .badge .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--green); box-shadow: 0 0 10px var(--green); }
+
+  h1 {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    font-size: clamp(2.1rem, 6vw, 3.7rem);
+    font-weight: 700; line-height: 1.08;
+    margin: 22px 0 16px; letter-spacing: -.02em;
+  }
+  h1 .accent { background: linear-gradient(90deg, var(--green), #4ade80); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .lead { font-size: clamp(1rem, 2.4vw, 1.15rem); color: var(--muted); max-width: 620px; }
+
+  /* ---------- checklist ---------- */
+  .checks { list-style: none; margin: 34px 0 28px; display: grid; gap: 14px; }
+  .checks li {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 16px 18px; font-weight: 500;
+    transition: border-color .2s;
+  }
+  .checks li:hover { border-color: rgba(34,197,94,.45); }
+  .checks .check {
+    flex: none; width: 24px; height: 24px; border-radius: 999px;
+    background: rgba(34,197,94,.14); border: 1px solid var(--green);
+    display: grid; place-items: center; color: var(--green); margin-top: 2px;
+  }
+  .checks .check svg { width: 13px; height: 13px; }
+
+  /* ---------- quote ---------- */
+  .quote {
+    border-left: 3px solid var(--blue);
+    background: linear-gradient(90deg, rgba(59,130,246,.09), transparent);
+    border-radius: 0 14px 14px 0;
+    padding: 18px 20px; margin: 30px 0 34px;
+    font-size: 1.08rem;
+  }
+  .quote b { color: var(--text); }
+  .quote span { color: var(--muted); font-size: .82rem; display: block; margin-top: 6px; }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, var(--green), #16a34a);
+    color: #04210f; text-decoration: none;
+    font-size: 1.05rem; font-weight: 700;
+    padding: 16px 30px; border-radius: 14px;
+    box-shadow: 0 10px 34px rgba(34,197,94,.28);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(34,197,94,.38); }
+  .cta svg { width: 18px; height: 18px; }
+
+  .cta-note { margin-top: 12px; font-size: .8rem; color: var(--muted); }
+
+  /* ---------- disclaimer ---------- */
+  .disclaimer {
+    margin-top: 54px;
+    border-top: 1px solid var(--line);
+    padding-top: 26px;
+    font-size: .74rem; color: var(--muted); line-height: 1.7;
+  }
+  .disclaimer b { color: var(--text); display: inline-block; margin-bottom: 6px; }
+
+  .reveal { opacity: 0; transform: translateY(14px); animation: rise .7s ease forwards; }
+  .reveal.d1 { animation-delay: .1s; } .reveal.d2 { animation-delay: .25s; }
+  .reveal.d3 { animation-delay: .4s; } .reveal.d4 { animation-delay: .55s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  @media (min-width: 780px) {
+    .checks { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body id="top">
+
+<!-- background candles -->
+<div class="candle up" style="left:8%; top:14%"><span class="w"></span></div>
+<div class="candle down" style="left:15%; top:42%"><span class="w"></span></div>
+<div class="candle up" style="left:88%; top:20%"><span class="w"></span></div>
+<div class="candle down" style="left:92%; top:62%"><span class="w"></span></div>
+<div class="candle up" style="left:80%; top:80%"><span class="w"></span></div>
+
+<header class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span>EUR/USD <b>1.08512</b></span>
+    <span>GBP/USD <b>1.27110</b></span>
+    <span>USD/JPY <b>144.382</b></span>
+    <span>XAU/USD <b>2,519.4</b></span>
+    <span>BTC/USD <b>58,912</b></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <span class="badge reveal"><span class="dot"></span> Trade With Structure</span>
+
+    <h1 class="reveal d1">Still Trading Without<br />a <span class="accent">Confirmation?</span></h1>
+
+    <p class="lead reveal d2">Structured entries for Forex &amp; Metal — wait for the signal, then execute. No guesswork, no emotion.</p>
+
+    <ul class="checks">
+      <li class="reveal d2">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Trade with clear structure <b>&nbsp;(Forex &amp; Metal)</b>
+      </li>
+      <li class="reveal d2">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Wait for confirmation before entry
+      </li>
+      <li class="reveal d3">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Execute with discipline, not emotion
+      </li>
+      <li class="reveal d3">
+        <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Focus on knowledge, not random wins
+      </li>
+    </ul>
+
+    <div class="quote reveal d3">
+      <b>Most traders don&#39;t lose because of strategy —<br />they lose because of timing to entry.</b>
+      <span>Confirmation is the difference between guessing and trading.</span>
+    </div>
+
+    <a class="cta reveal d4" href="https://t.me/+-tuCjgX32vsxMDU1" target="_blank" rel="noopener nofollow">
+      Start Trading With Structure
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+    </a>
+    <div class="cta-note reveal d4">Free channel on Telegram — your first confirmation is one click away.</div>
+
+    <div class="disclaimer reveal d4">
+      <b>Disclaimer</b><br />
+      PLEASE NOTE: This site is not affiliated with Facebook or any Facebook entity. Once you leave Facebook, it&#39;s not their responsibility, it&#39;s our website&#39;s. We make every effort to clearly state and show all product proofs and use actual results.
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // Duplicate ticker content once for a seamless loop
+  const t = document.getElementById('ticker');
+  t.innerHTML += t.innerHTML;
+
+  // Live-ish price shuffle for feel (display only)
+  const tick = () => {
+    document.querySelectorAll('.ticker-track b').forEach(el => {
+      const v = parseFloat(el.textContent.replace(/,/g, ''));
+      const drift = (Math.random() - 0.48) * v * 0.0006;
+      el.textContent = (v + drift).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 3 });
+    });
+  };
+  setInterval(tick, 4000);
+</script>
+</body>
+</html>
